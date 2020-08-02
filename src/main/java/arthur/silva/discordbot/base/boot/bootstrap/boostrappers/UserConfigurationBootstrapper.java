@@ -34,21 +34,22 @@ public class UserConfigurationBootstrapper implements BootstrapperOrdered {
     private void configure(Map<String, String> configuration) throws BootstrapException {
         String selectedConfiguration;
 
-        selectedConfiguration = configuration                       .get("token");
+        selectedConfiguration = configuration                                   .get("token");
         if (selectedConfiguration == null)
             throw new BootstrapException("The bot token configuration (token=123) is missing in the configuration file: " + configurationFilePath, true);
         Bot.token = selectedConfiguration;
 
-        selectedConfiguration = configuration                       .get("commandsprefix");
+        selectedConfiguration = configuration                                   .get("commandsprefix");
         if (selectedConfiguration == null)
             throw new BootstrapException("The bot prefix configuration (prefix=\"! \") is missing in the configuration file: " + configurationFilePath, true);
         CommandUserConfig.commandPrefix = convertQuoteMarkedConfig(selectedConfiguration);
         CommandUserConfig.commandPrefixNChars = CommandUserConfig.commandPrefix.length();
 
-        Bot.playingStatus = configuration                           .get("game");
-        CommandUserConfig.defaultEmbedColor = Color.decode(configuration      .get("helpembedcolor"));
-        CommandUserConfig.helpEmbedFooterImageUrl = configuration             .get("helpembedfooterimageurl");
-        CommandUserConfig.helpEmbedFooterText = configuration                 .get("helpembedfootertext");
+        Bot.playingStatus = configuration                                       .get("game");
+        CommandUserConfig.defaultEmbedColor = Color.decode(configuration        .get("helpembedcolor"));
+        CommandUserConfig.helpEmbedFooterImageUrl = configuration               .get("helpembedfooterimageurl");
+        CommandUserConfig.helpEmbedFooterText = configuration                   .get("helpembedfootertext");
+        CommandUserConfig.mainMenuThumbnail = configuration                     .get("mainmenuthumbnail");
     }
 
     private static String convertQuoteMarkedConfig(String cfg) {
