@@ -13,9 +13,8 @@ public class CommandsManager {
     private final Map<String, Command> allCommandsFullNameWithPrefixLowerCase;
     @Autowired private CommandsHelpManager commandsHelpManager;
 
-    public CommandsManager(Command... rootCommands) {
-        Collection<Command> commandCollection = Arrays.asList(rootCommands);
-        this.rootCommands = new LinkedHashSet<>(commandCollection);
+    public CommandsManager(Collection<Command> rootCommands) {
+        this.rootCommands = new LinkedHashSet<>(rootCommands);
         allCommandsFullNameWithPrefixLowerCase = retrieveAllCommandsByFullNameWithPrefixRecursively(this.rootCommands, true);
     }
 

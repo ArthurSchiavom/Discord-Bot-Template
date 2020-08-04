@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Configuration
@@ -20,8 +21,8 @@ public class CommandConfig {
     private ApplicationContext applicationContext;
 
     @Bean(name="commandsInOrder")
-    public List<Command> commandsInOrder() {
-        List<Command> result = new ArrayList<>();
+    public Collection<Command> commandsInOrder() {
+        Collection<Command> result = new ArrayList<>();
         // *** Register commands here
         result.add(help);
 
