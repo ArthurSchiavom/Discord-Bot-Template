@@ -1,10 +1,10 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
+import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
 import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementVerificationResult;
 import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementsManager;
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
-import arthur.silva.discordbot.base.data.loaded.configuration.CommandUserConfig;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -64,8 +64,8 @@ public abstract class Command {
      * @param name the name to register
      */
     protected void registerName(@NonNull String name) {
-        if (name.contains(CommandUserConfig.ARGUMENT_SEPARATOR)) {
-            throw new IllegalArgumentException("Command names can't include the reserved character '" + CommandUserConfig.ARGUMENT_SEPARATOR + "'.");
+        if (name.contains(GlobalConfiguration.Command.ARGUMENT_SEPARATOR)) {
+            throw new IllegalArgumentException("Command names can't include the reserved character '" + GlobalConfiguration.Command.ARGUMENT_SEPARATOR + "'.");
         }
         names.add(name);
     }
@@ -170,7 +170,7 @@ public abstract class Command {
      * @return (1) the processed message or (2) an empty string if the message has less arguments than the amount specified.
      */
     public static String removeNArguments(@NonNull String msg, int nArguments) {
-        String[] split = msg.split(CommandUserConfig.ARGUMENT_SEPARATOR, nArguments+1);
+        String[] split = msg.split(GlobalConfiguration.Command.ARGUMENT_SEPARATOR, nArguments+1);
         if (split.length <= nArguments)
             return "";
         else
@@ -186,10 +186,10 @@ public abstract class Command {
      * @return (1) the message without the prefix or (2) an empty string if the message is smaller than the prefix length
      */
     public static String removePrefix(@NonNull String msg) {
-        if (msg.length() < CommandUserConfig.commandPrefixNChars)
+        if (msg.length() < GlobalConfiguration.Command.commandPrefixNChars)
             return "";
 
-        return msg.substring(CommandUserConfig.commandPrefixNChars);
+        return msg.substring(GlobalConfiguration.Command.commandPrefixNChars);
     }
 
 

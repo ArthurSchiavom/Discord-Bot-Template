@@ -1,7 +1,7 @@
 package arthur.silva.discordbot.base.application.utils;
 
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
-import arthur.silva.discordbot.base.data.loaded.configuration.Bot;
+import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -670,7 +670,7 @@ public class Utils {
     }
 
     public static List<Member> getAllMembersOfStatus(boolean allowRepeatedUsers, boolean ignoreBots, OnlineStatus... validOnlineStatuses) {
-        List<Guild> guilds = Bot.jda.getGuilds();
+        List<Guild> guilds = GlobalConfiguration.Bot.jda.getGuilds();
         List<Member> result = new ArrayList<>();
 
         for (Guild guild : guilds) {

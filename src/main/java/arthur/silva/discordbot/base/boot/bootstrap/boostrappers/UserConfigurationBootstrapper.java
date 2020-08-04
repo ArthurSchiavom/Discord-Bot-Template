@@ -2,8 +2,7 @@ package arthur.silva.discordbot.base.boot.bootstrap.boostrappers;
 
 import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapException;
 import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapperOrdered;
-import arthur.silva.discordbot.base.data.loaded.configuration.Bot;
-import arthur.silva.discordbot.base.data.loaded.configuration.CommandUserConfig;
+import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import arthur.silva.discordbot.base.infrastructure.application.user.configuration.ConfigurationException;
 import arthur.silva.discordbot.base.infrastructure.application.user.configuration.UserConfigurationLoader;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,19 +36,19 @@ public class UserConfigurationBootstrapper implements BootstrapperOrdered {
         selectedConfiguration = configuration                                   .get("token");
         if (selectedConfiguration == null)
             throw new BootstrapException("The bot token configuration (token=123) is missing in the configuration file: " + configurationFilePath, true);
-        Bot.token = selectedConfiguration;
+        GlobalConfiguration.Bot.token = selectedConfiguration;
 
         selectedConfiguration = configuration                                   .get("commandsprefix");
         if (selectedConfiguration == null)
             throw new BootstrapException("The bot prefix configuration (prefix=\"! \") is missing in the configuration file: " + configurationFilePath, true);
-        CommandUserConfig.commandPrefix = convertQuoteMarkedConfig(selectedConfiguration);
-        CommandUserConfig.commandPrefixNChars = CommandUserConfig.commandPrefix.length();
+        GlobalConfiguration.Command.commandPrefix = convertQuoteMarkedConfig(selectedConfiguration);
+        GlobalConfiguration.Command.commandPrefixNChars = GlobalConfiguration.Command.commandPrefix.length();
 
-        Bot.playingStatus = configuration                                       .get("game");
-        CommandUserConfig.defaultEmbedColor = Color.decode(configuration        .get("helpembedcolor"));
-        CommandUserConfig.helpEmbedFooterImageUrl = configuration               .get("helpembedfooterimageurl");
-        CommandUserConfig.helpEmbedFooterText = configuration                   .get("helpembedfootertext");
-        CommandUserConfig.mainMenuThumbnail = configuration                     .get("mainmenuthumbnail");
+        GlobalConfiguration.Bot.playingStatus = configuration                                       .get("game");
+        GlobalConfiguration.Command.defaultEmbedColor = Color.decode(configuration        .get("helpembedcolor"));
+        GlobalConfiguration.Command.helpEmbedFooterImageUrl = configuration               .get("helpembedfooterimageurl");
+        GlobalConfiguration.Command.helpEmbedFooterText = configuration                   .get("helpembedfootertext");
+        GlobalConfiguration.Command.mainMenuThumbnail = configuration                     .get("mainmenuthumbnail");
     }
 
     private static String convertQuoteMarkedConfig(String cfg) {
