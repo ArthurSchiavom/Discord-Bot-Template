@@ -1,32 +1,34 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
-import arthur.silva.discordbot.base.application.command.requirement.Requirement;
-import arthur.silva.discordbot.base.application.command.requirement.RequirementVerificationResult;
-import arthur.silva.discordbot.base.application.command.requirement.RequirementsManager;
+import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
+import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementVerificationResult;
+import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementsManager;
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.data.loaded.configuration.CommandUserConfig;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@Component
 public abstract class Command {
-
-    public static final String ARGUMENT_SEPARATOR = " "; // Used to separate parent/child commands
 
     @Getter private final Category category;
     @Getter private final String description;
     private final List<String> names; // TODO - The CommandExecutor will trace-back the names of all parents to create the menu.
+    private final List<String> arguments;
     private final List<CommandUsageExample> usageExamples;
     private final boolean runInNewThread;
     @Autowired @Getter private RequirementsManager requirementsManager;
 
     public List<String> getNames() {
         return new ArrayList<>(names);
+    }
+
+    public List<String> getArguments() {
+        return new ArrayList<>(arguments);
     }
 
     public List<CommandUsageExample> getUsageExamples() {
@@ -40,7 +42,7 @@ public abstract class Command {
      * @param description The command's description.
      * @param runInNewThread If the command actions should run on a new thread.
      */
-    public Command(@NonNull Category category, @NonNull String description, boolean runInNewThread) {
+    public Command(@NonNull Category category, @NonNull String description, boolean runInNewThread, @NonNull String... arguments) {
         if (description.isEmpty()) {
             throw new IllegalArgumentException("A description must be specified.");
         }
@@ -49,6 +51,11 @@ public abstract class Command {
         this.runInNewThread = runInNewThread;
         names = new ArrayList<>();
         usageExamples = new ArrayList<>();
+        this.arguments = Arrays.asList(arguments);
+    }
+
+    public String getDefaultName() {
+        return names.get(0);
     }
 
     /**
@@ -57,8 +64,8 @@ public abstract class Command {
      * @param name the name to register
      */
     protected void registerName(@NonNull String name) {
-        if (name.contains(ARGUMENT_SEPARATOR)) {
-            throw new IllegalArgumentException("Command names can't include the reserved character '" + ARGUMENT_SEPARATOR + "'.");
+        if (name.contains(CommandUserConfig.ARGUMENT_SEPARATOR)) {
+            throw new IllegalArgumentException("Command names can't include the reserved character '" + CommandUserConfig.ARGUMENT_SEPARATOR + "'.");
         }
         names.add(name);
     }
@@ -75,10 +82,10 @@ public abstract class Command {
     /**
      * Registers requirements to run this command.
      *
-     * @param requirements requirements to register
+     * @param others requirements to register
      */
-    protected void registerRequirements(@NonNull Requirement... requirements) {
-        requirementsManager.registerRequirements(requirements);
+    protected void registerRequirements(Requirement first, @NonNull Requirement... others) {
+        requirementsManager.setRequirements(first, others);
     }
 
     /**
@@ -163,7 +170,7 @@ public abstract class Command {
      * @return (1) the processed message or (2) an empty string if the message has less arguments than the amount specified.
      */
     public static String removeNArguments(@NonNull String msg, int nArguments) {
-        String[] split = msg.split(ARGUMENT_SEPARATOR, nArguments+1);
+        String[] split = msg.split(CommandUserConfig.ARGUMENT_SEPARATOR, nArguments+1);
         if (split.length <= nArguments)
             return "";
         else

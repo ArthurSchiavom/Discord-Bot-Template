@@ -1,8 +1,8 @@
-package arthur.silva.discordbot.base.application.command.requirement;
+package arthur.silva.discordbot.base.ui.command.base.requirement;
 
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
-
-import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
 
@@ -10,7 +10,20 @@ import net.dv8tion.jda.api.managers.AudioManager;
  * Requirement for a command to be accessible.
  */
 public enum Requirement {
-	SAME_VOICE_CHANNEL (event -> {
+	ADMIN (event -> {
+		Member member = event.getMember();
+		if (member == null)
+			return new RequirementVerificationResult(false, "This command can only be used in a server.");
+
+		if (member.hasPermission(Permission.ADMINISTRATOR)) {
+			return new RequirementVerificationResult(true, null);
+		}
+		else {
+			return new RequirementVerificationResult(false, "Sorry! You must be an admin to use this command. \uD83D\uDE41");
+		}
+	})
+
+	, SAME_VOICE_CHANNEL (event -> {
 		AudioManager audioManager = event.getGuild().getAudioManager();
 
 		if (!audioManager.isConnected()) {
@@ -24,6 +37,7 @@ public enum Requirement {
 
 		return new RequirementVerificationResult(true, null);
 	})
+
 	, BOT_CONNECTED_TO_VOICE_CHANNEL(event -> {
 		AudioManager audioManager = event.getGuild().getAudioManager();
 		if (!audioManager.isConnected()) {
@@ -32,6 +46,7 @@ public enum Requirement {
 
 		return new RequirementVerificationResult(true, null);
 	})
+
 	, GUILD_HAS_MUSIC_MANAGER_ACTIVE(event -> {
 //		TODO
 //		GuildMusicManager musicManager = PlayerManager.getInstance().getGuildMusicManager(event.getGuild().getIdLong());

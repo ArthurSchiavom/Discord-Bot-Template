@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.application.command.requirement;
+package arthur.silva.discordbot.base.ui.command.base.requirement;
 
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import org.springframework.context.annotation.Scope;
@@ -6,8 +6,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Manages a command's requirements.
@@ -15,34 +15,22 @@ import java.util.List;
 @Scope("prototype")
 @Component
 public class RequirementsManager {
-	private final List<Requirement> requirements = new ArrayList<>();
+	private Set<Requirement> requirements;
 
 	/**
 	 * Registers a group of requirements.
 	 *
-	 * @param requirementsToRegister requirements to register
+	 * @param rest requirements to register
 	 */
-	public void registerRequirements(@NonNull Requirement... requirementsToRegister) {
-		for (Requirement requirementToAdd : requirementsToRegister) {
-			registerRequirement(requirementToAdd);
-		}
-	}
-
-	/**
-	 * Registers a requirement.
-	 *
-	 * @param requirement requirement to register
-	 */
-	public void registerRequirement(@NonNull Requirement requirement) {
-		if (!requirements.contains(requirement))
-			requirements.add(requirement);
+	public void setRequirements(Requirement first, @NonNull Requirement... rest) {
+		requirements = EnumSet.of(first, rest);
 	}
 
 	/**
 	 * @return This command's requirements.
 	 */
-	public List<Requirement> getRequirements() {
-		return new ArrayList<>(requirements);
+	public Set<Requirement> getRequirements() {
+		return EnumSet.copyOf(requirements);
 	}
 
 	/**
@@ -63,11 +51,23 @@ public class RequirementsManager {
 	/**
 	 * Verifies if the command has a certain requirement to be run.
 	 *
-	 * @param requirement The requirement to verify.
-	 * @return If it has the requirement.
+	 * @param requirementsToVerify the requirements to verify
+	 * @return if it has the requirement
 	 */
-	public boolean requires(@NonNull Requirement requirement) {
-		return requirements.contains(requirement);
+	public boolean requires(@NonNull Requirement... requirementsToVerify) {
+		for (Requirement requirementToVerify : requirementsToVerify) {
+			if (!requirements.contains(requirementToVerify))
+				return false;
+		}
+		return true;
+	}
+
+	public boolean doesNotRequire(@NonNull Requirement... requirementsToVerify) {
+		for (Requirement requirementToVerify : requirementsToVerify) {
+			if (requirements.contains(requirementToVerify))
+				return false;
+		}
+		return true;
 	}
 
 	/**

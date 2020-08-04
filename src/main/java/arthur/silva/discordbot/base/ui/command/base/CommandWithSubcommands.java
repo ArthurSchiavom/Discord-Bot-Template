@@ -6,33 +6,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * A command with sub-commands
  */
-public abstract class CommandWithSubCommands extends Command {
-    private final List<Command> subcommands = new ArrayList<>();
+public abstract class CommandWithSubcommands extends Command {
+    private final Set<Command> subcommands = new LinkedHashSet<>();
 
     @Autowired
     private Help help;
 
-    public CommandWithSubCommands(@NonNull Category category, @NonNull String description) {
-        super(category, description, false);
+    public CommandWithSubcommands(@NonNull Category category, @NonNull String description) {
+        super(category, description, false, "[Option]");
     }
 
     protected void registerSubcommands(@NonNull Command... commands) {
-        for(Command command : commands) {
+        for (Command command : commands) {
             registerSubcommand(command);
         }
     }
 
     protected void registerSubcommand(@NonNull Command command) {
-        if (!subcommands.contains(command)) {
-            subcommands.add(command);
-        }
+        subcommands.add(command);
     }
 
     @Override
@@ -67,7 +64,7 @@ public abstract class CommandWithSubCommands extends Command {
         return null;
     }
 
-    public ArrayList<Command> getSubcommands() {
-        return new ArrayList<>(subcommands);
+    public Set<Command> getSubcommands() {
+        return new LinkedHashSet<>(subcommands);
     }
 }

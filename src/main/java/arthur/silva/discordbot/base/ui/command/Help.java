@@ -1,6 +1,6 @@
 package arthur.silva.discordbot.base.ui.command;
 
-import arthur.silva.discordbot.base.application.command.CommandExecutor;
+import arthur.silva.discordbot.base.ui.command.base.CommandExecutor;
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.ui.command.base.Category;
 import arthur.silva.discordbot.base.ui.command.base.Command;
@@ -8,12 +8,18 @@ import arthur.silva.discordbot.base.ui.command.base.CommandWithoutSubcommands;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 public class Help extends CommandWithoutSubcommands {
 
+    private Map<Command, Message> helpMessages = new HashMap<>();
+    private Message mainMenu;
+
+
     public Help() {
         super(Category.INFORMATION, "Obtain help related to the bot.", false);
-        // TODO
     }
 
     /**

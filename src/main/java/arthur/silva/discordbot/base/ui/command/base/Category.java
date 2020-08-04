@@ -1,10 +1,12 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 /**
  * Command category.
  */
+@Component
 public enum Category implements Comparable<Category> {
 	MODERATION("\uD83D\uDD28 Moderation")
 	, INFORMATION("❓ Information")

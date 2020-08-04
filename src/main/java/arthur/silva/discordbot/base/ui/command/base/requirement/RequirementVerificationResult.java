@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.application.command.requirement;
+package arthur.silva.discordbot.base.ui.command.base.requirement;
 
 import org.springframework.lang.Nullable;
 

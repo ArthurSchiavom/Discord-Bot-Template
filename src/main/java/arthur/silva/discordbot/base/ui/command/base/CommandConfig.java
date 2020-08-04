@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.application.command;
+package arthur.silva.discordbot.base.ui.command.base;
 
 import arthur.silva.discordbot.base.ui.command.Help;
 import arthur.silva.discordbot.base.ui.command.base.Command;
@@ -6,14 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-public class CommandExecutorConfiguration {
+public class CommandConfig {
 
     @Autowired
     private Help help;
@@ -28,10 +26,5 @@ public class CommandExecutorConfiguration {
         result.add(help);
 
         return result;
-    }
-
-    @Bean
-    public Help helpCommand() {
-        return new Help();
     }
 }

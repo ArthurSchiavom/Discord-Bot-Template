@@ -5,6 +5,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import java.awt.*;
 
 public class CommandUserConfig {
+    public static final String ARGUMENT_SEPARATOR = " "; // Used to separate parent/child commands
+
     public static String commandPrefix;
     public static int commandPrefixNChars;
     /** Defaults to #28CF75 */
@@ -21,5 +23,10 @@ public class CommandUserConfig {
             eb.setFooter(helpEmbedFooterText, helpEmbedFooterImageUrl);
         else if (helpEmbedFooterText != null)
             eb.setFooter(helpEmbedFooterText);
+    }
+
+    public static void configEmbedThumbnail(EmbedBuilder eb) {
+        if (mainMenuThumbnail != null)
+            eb.setThumbnail(CommandUserConfig.mainMenuThumbnail);
     }
 }
