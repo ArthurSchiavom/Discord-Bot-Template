@@ -4,13 +4,14 @@ import arthur.silva.discordbot.base.ui.command.base.CommandExecutor;
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 /**
  * Guild message events processor
  */
 @Component
-public class GuildMessageEventOperator {
+public class GuildMessageEventOperator implements EventOperator<GuildMessageReceivedEvent> {
 
 	@Autowired
 	CommandExecutor commandExecutor;
@@ -25,6 +26,6 @@ public class GuildMessageEventOperator {
 			return;
 
 		MessageReceivedEvent messageReceivedEvent = new MessageReceivedEvent(event);
-		commandExecutor.executePossibleCommandRequest(messageReceivedEvent);
+		commandExecutor.executePossibleCommand(messageReceivedEvent);
 	}
 }

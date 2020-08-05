@@ -1,0 +1,15 @@
+
+
+# This is a comment
+
+token = 123
+
+game = beep boop biip!
+
+Main Menu Thumbnail = https://123.com
+
+HelpEmbedColor = #28CF75
+HelpEmbedFooterImageUrl = https://abc.com
+HelpEmbedFooterText = To use a command, type "!CommandName" and to see it's help "!help CommandName". Admins can use "!help admins".
+
+CommandsPrefix = "!"

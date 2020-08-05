@@ -1,12 +1,12 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
+import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
 
 public enum MainMenuType {
-
     /**
      *
-     * !!! Be sure to verify all elements when updating/adding/removing elements. Some permissions can affect other menus.
+     * !!! Be sure to verify all elements when updating/adding/removing elements/permissions. Some permissions can affect other menus.
      *
      * */
     USER("User",
@@ -14,21 +14,21 @@ public enum MainMenuType {
 
     , ADMIN("Admin",
                 command -> command.getRequirementsManager().requires(Requirement.ADMIN))
-    ; // TODO -- add a verifier on boot that checks if none of these overlap
+    ;
 
-    private final String NAME;
-    private final MainMenuTypeAction ACTION;
+    public final String NAME;
+    private final AcceptCommandAction ACCEPT_COMMAND_ACTION;
 
-    MainMenuType(String name, MainMenuTypeAction action) {
+    MainMenuType(String name, AcceptCommandAction acceptCommandAction) {
         this.NAME = name;
-        this.ACTION = action;
+        this.ACCEPT_COMMAND_ACTION = acceptCommandAction;
     }
 
     public boolean accepts(Command command) {
-        return ACTION.accepts(command);
+        return ACCEPT_COMMAND_ACTION.accepts(command);
     }
 
-    private interface MainMenuTypeAction {
+    private interface AcceptCommandAction {
         boolean accepts(Command command);
     }
 }

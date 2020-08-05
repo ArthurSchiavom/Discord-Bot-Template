@@ -22,6 +22,7 @@ public abstract class Command {
     private final List<CommandUsageExample> usageExamples;
     private final boolean runInNewThread;
     @Autowired @Getter private RequirementsManager requirementsManager;
+    private int depth = 1;
 
     public List<String> getNames() {
         return new ArrayList<>(names);
@@ -33,6 +34,20 @@ public abstract class Command {
 
     public List<CommandUsageExample> getUsageExamples() {
         return new ArrayList<>(usageExamples);
+    }
+
+    /**
+     * Increments this commands depth, meaning how many commands there is in the chain.
+     * <br>Example 1: a command with no supercommands has depth 1
+     * <br>Example 2: a command with a supercommand has depth 2
+     * <br>Example 3: a command with a supercommand that has a supercommand has depth 3
+     */
+    protected void incrementDepth() {
+        depth++;
+    }
+
+    protected int getDepth() {
+        return depth;
     }
 
     /**
@@ -89,7 +104,7 @@ public abstract class Command {
     }
 
     /**
-     * Executes the command. It is assumed that this command doesn't have a subcommand.
+     * Executes the command.
      *
      * @param event the event that triggered the command
      */
@@ -100,62 +115,30 @@ public abstract class Command {
         RequirementVerificationResult requirementVerificationResult = requirementsManager.meetsRequirements(event);
         if (!requirementVerificationResult.successfulVerification) {
             event.getChannel().sendMessage(requirementVerificationResult.reasonVerificationFailed).queue();
-        }
-
-        final int nCommandsInChain = 1;
-
-        if (runInNewThread) {
-            new Thread(() -> {
-                runInternal(event, nCommandsInChain);
-            }).start();
-        }
-        else {
-            runInternal(event, nCommandsInChain);
-        }
-    }
-
-    /**
-     * Executes the command.
-     *
-     * @param event the event that triggered the command
-     * @param nCommandsInChain the number of commands so far down the chain
-     */
-    protected void run(@NonNull MessageReceivedEvent event, int nCommandsInChain) {
-        if (event.getAuthor().isBot())
             return;
-
-        RequirementVerificationResult requirementVerificationResult = requirementsManager.meetsRequirements(event);
-        if (!requirementVerificationResult.successfulVerification) {
-            event.getChannel().sendMessage(requirementVerificationResult.reasonVerificationFailed).queue();
         }
-
-        nCommandsInChain++;
 
         if (runInNewThread) {
-            final int finalNCommands = nCommandsInChain;
-            new Thread(() -> {
-                runInternal(event, finalNCommands);
-            }).start();
+            new Thread(() -> runInternal(event)).start();
         }
         else {
-            runInternal(event, nCommandsInChain);
+            runInternal(event);
         }
     }
 
     /**
      * Execute this particular command's actions.
      *
-     * @param messageReceivedEvent the event that triggered the command
-     * @param nCommandsInChain the number of commands so far down the chain
+     * @param event the event that triggered the command
      */
-    protected abstract void runInternal(MessageReceivedEvent messageReceivedEvent, int nCommandsInChain);
+    protected abstract void runInternal(MessageReceivedEvent event);
 
     /**
      * Removes the command prefix from the message and N arguments.
      *
      * @param msg the message to process
      * @param nArguments the number of arguments to remove
-     * @return the processed message
+     * @return (1) the processed message or (2) an empty string if the message doesn't contain enough arguments or is smaller than the prefix
      */
     public static String removePrefixAndNArguments(@NonNull String msg, int nArguments) {
         msg = removePrefix(msg);

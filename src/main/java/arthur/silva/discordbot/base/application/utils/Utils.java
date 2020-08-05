@@ -2,6 +2,7 @@ package arthur.silva.discordbot.base.application.utils;
 
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
+import arthur.silva.discordbot.base.infrastructure.application.utils.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -217,31 +218,6 @@ public class Utils {
         return sb;
     }
 
-    /**
-     * Calculates a visual representation of a list of strings: String1, String2, String3,...
-     *
-     * @return A visual representation of the list of strings if any or
-     * <br>EMPTY_LIST_TEXT_CONVERSION_MESSAGE constant of this class if the list or null or empty.
-     */
-    public static String getBoldListTextComma(List<String> strings) {
-        String result = EMPTY_LIST_TEXT_CONVERSION_MESSAGE;
-        if (strings != null && !strings.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            Iterator<String> stringsIt = strings.iterator();
-            sb.append("**").append(stringsIt.next()).append("**");
-            while (stringsIt.hasNext()) {
-                String string = stringsIt.next();
-                if (stringsIt.hasNext())
-                    sb.append(", ");
-                else
-                    sb.append(" and ");
-                sb.append("**").append(string).append("**");
-            }
-            result = sb.toString();
-        }
-        return result;
-    }
-
     public static List<Long> getMemberRolesIds(Member member) {
         List<Long> rolesIds = new ArrayList<>();
         for (Role role : member.getRoles()) {
@@ -250,11 +226,6 @@ public class Utils {
         return rolesIds;
     }
 
-    /**
-     * @param event
-     * @param rolesIds
-     * @return A user-readable message of the result of the operation.
-     */
     public static String batchToggleRoles(@NotNull Guild guild, @NotNull Member member, @NotNull List<Long> rolesIds) {
         String resultMessage = null;
         List<Long> memberRolesIds = Utils.getMemberRolesIds(member);
@@ -294,7 +265,7 @@ public class Utils {
         if (hasRoleAdded) {
             String pluralOrNot = (rolesAddedNames.size() > 1) ? "s " : " ";
             sb.append(pluralOrNot);
-            sb.append(Utils.getBoldListTextComma(rolesAddedNames));
+            sb.append(StringUtils.generateDisplayList(",", "and", "**", "**", rolesAddedNames));
             String wasWere = (rolesAddedNames.size() == 1) ? " was" : " were";
             sb.append(wasWere).append(" added");
         }
@@ -306,7 +277,7 @@ public class Utils {
             String pluralOrNot = (rolesRemovedNames.size() > 1) ? "s " : " ";
             sb.append(pluralOrNot);
 
-            sb.append(Utils.getBoldListTextComma(rolesRemovedNames));
+            sb.append(StringUtils.generateDisplayList(",", "and", "**", "**", rolesRemovedNames));
             String wasWere = (rolesRemovedNames.size() == 1) ? " was" : " were";
             sb.append(wasWere).append(" removed");
         }

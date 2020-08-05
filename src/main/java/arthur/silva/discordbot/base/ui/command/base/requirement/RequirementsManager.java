@@ -7,6 +7,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Set;
 @Scope("prototype")
 @Component
 public class RequirementsManager {
-	private Set<Requirement> requirements;
+	private Set<Requirement> requirements = new HashSet<>();
 
 	/**
 	 * Registers a group of requirements.
