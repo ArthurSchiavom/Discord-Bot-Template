@@ -12,7 +12,7 @@ public enum MessageOrigin {
 	}
 
 	/**
-	 * @return A visual representation of this enum element.
+	 * @return A visual representation of this Message Origin.
 	 */
 	@Override
 	public String toString() {

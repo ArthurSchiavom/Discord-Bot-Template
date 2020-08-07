@@ -45,18 +45,6 @@ public enum Requirement {
 		}
 
 		return new RequirementVerificationResult(true, null);
-	})
-
-	, GUILD_HAS_MUSIC_MANAGER_ACTIVE(event -> {
-//		TODO
-//		GuildMusicManager musicManager = PlayerManager.getInstance().getGuildMusicManager(event.getGuild().getIdLong());
-//
-//		if (musicManager == null) {
-//			event.getChannel().sendMessage("**There's nothing playing.**").queue();
-//			return false;
-//		}
-
-		throw new UnsupportedOperationException("This feature was not implemented yet");
 	});
 
 	private final RequirementVerification requirementVerification;

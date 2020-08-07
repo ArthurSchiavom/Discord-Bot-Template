@@ -1,8 +1,10 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
 
+/**
+ * A commands' main menu type.
+ */
 public enum MainMenuType {
     /**
      *
@@ -24,10 +26,19 @@ public enum MainMenuType {
         this.ACCEPT_COMMAND_ACTION = acceptCommandAction;
     }
 
+    /**
+     * Verifies if this main menu accepts a given command.
+     *
+     * @param command the command to verify
+     * @return true if the command is accepted and false otherwise
+     */
     public boolean accepts(Command command) {
         return ACCEPT_COMMAND_ACTION.accepts(command);
     }
 
+    /**
+     * Callback to verify if a menu accepts a command.
+     */
     private interface AcceptCommandAction {
         boolean accepts(Command command);
     }

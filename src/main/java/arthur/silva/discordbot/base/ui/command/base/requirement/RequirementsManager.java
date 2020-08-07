@@ -63,6 +63,9 @@ public class RequirementsManager {
 		return true;
 	}
 
+	/**
+	 * Verifies if none of these requirements are necessary.
+	 */
 	public boolean doesNotRequire(@NonNull Requirement... requirementsToVerify) {
 		for (Requirement requirementToVerify : requirementsToVerify) {
 			if (requirements.contains(requirementToVerify))

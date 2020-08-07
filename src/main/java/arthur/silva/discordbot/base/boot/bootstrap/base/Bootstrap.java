@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.Collection;
 
+/**
+ * Bootstraps the application.
+ */
 @Service
 public class Bootstrap {
     private final Logger LOGGER = LoggerFactory.getLogger(Bootstrap.class);
@@ -20,7 +23,7 @@ public class Bootstrap {
     private Collection<BootstrapperUnordered> unorderedBootstrappers;
 
     /**
-     * Required to guarantee that the applicationContext variable is injected before it's usage and to make sure that the bean is loaded via it's annotated name.
+     * Retrieve boostrappers.
      */
     private final void setup() {
         orderedBootstrappers = applicationContext.getBean("orderedBootstrappers", Collection.class);
@@ -28,6 +31,8 @@ public class Bootstrap {
     }
 
     /**
+     * Boostrap the application.
+     *
      * @return (1) true in case of success and (2) false if the application should shutdown
      */
     @PostConstruct
@@ -68,6 +73,8 @@ public class Bootstrap {
     }
 
     /**
+     * Executes all bootstrappers.
+     *
      * @return (1) true in case of success or (2) false if a critical bootstrapping operation failed, meaning that the application should shutdown.
      */
     private boolean runBootstrappers() {
@@ -81,12 +88,24 @@ public class Bootstrap {
      */
     private boolean runBootstrapperLists(Collection<? extends Bootstrapper>... bootrappersDoubleList) {
         boolean success = true;
-        for (Collection<? extends Bootstrapper> bootrappers : bootrappersDoubleList) {
-            for (Bootstrapper bootstrapper : bootrappers) {
-                success = runBootstrapper(bootstrapper);
-                if (!success)
-                    break;
-            }
+        for (Collection<? extends Bootstrapper> bootsrappers : bootrappersDoubleList) {
+            success = runBootstrapperList(bootsrappers);
+            if (!success)
+                break;
+        }
+
+        return success;
+    }
+
+    /**
+     * Executes a collection of bootstrappers.
+     *
+     * @return (1) true in case of success or (2) false if a critical bootstrapping operation failed, meaning that the application should shutdown.
+     */
+    private boolean runBootstrapperList(Collection<? extends Bootstrapper> bootstrappers) {
+        boolean success = true;
+        for (Bootstrapper bootstrapper : bootstrappers) {
+            success = runBootstrapper(bootstrapper);
             if (!success)
                 break;
         }
@@ -97,23 +116,8 @@ public class Bootstrap {
     /**
      * @return (1) true in case of success or (2) false if a critical bootstrapping operation failed, meaning that the application should shutdown.
      */
-    private boolean runBootstrapperList(Collection<Bootstrapper> bootrappers) {
-        boolean success = true;
-        for (Bootstrapper bootstrapper : bootrappers) {
-            success = runBootstrapper(bootstrapper);
-            if (!success) {
-                break;
-            }
-        }
-
-        return success;
-    }
-
-    /**
-     * @return (1) true in case of success or (2) false if a critical bootstrapping operation failed, meaning that the application should shutdown.
-     */
     private boolean runBootstrapper(Bootstrapper bootstrapper) {
-        String bootstrapperName = bootstrapper.loadingTargetName();
+        String bootstrapperName = bootstrapper.getModuleDisplayName();
         LOGGER.info("LOADING: " + bootstrapperName);
         try {
             bootstrapper.boot();

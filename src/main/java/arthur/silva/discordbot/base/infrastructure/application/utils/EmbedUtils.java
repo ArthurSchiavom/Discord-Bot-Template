@@ -2,6 +2,9 @@ package arthur.silva.discordbot.base.infrastructure.application.utils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 
+/**
+ * Utils for Discord embed manipulation.
+ */
 public class EmbedUtils {
     /**
      * Adjust an embed with only inline fields to have X columns (so it displays properly on PC)

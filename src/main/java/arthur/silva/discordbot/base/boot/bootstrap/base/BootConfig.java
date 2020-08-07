@@ -1,10 +1,9 @@
 package arthur.silva.discordbot.base.boot.bootstrap.base;
 
 import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.JDABootstrapper;
-import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.UserConfigurationBootstrapper;
+import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.UserConfigurationLoader;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Bootstrapping configuration
+ */
 @Configuration
 public class BootConfig {
 
@@ -23,8 +25,12 @@ public class BootConfig {
     ApplicationContext applicationContext;
 
     @Autowired JDABootstrapper jdaBootstrapper;
-    @Autowired UserConfigurationBootstrapper userConfigurationBootstrapper;
+    @Autowired
+    UserConfigurationLoader.UserConfigurationBootstrapper userConfigurationBootstrapper;
 
+    /**
+     * Register ordered boostrappers here.
+     */
     @Bean(name="orderedBootstrappers")
     public Collection<BootstrapperOrdered> orderedBootstrappers() {
         Collection<BootstrapperOrdered> bootstrappers = new ArrayList<>();
@@ -41,6 +47,7 @@ public class BootConfig {
     }
 
     /**
+     * Process user configurations.
      *
      * @param configurationWithLowerCaseNames map where keys are the configuration keys and the values are the respective configuration value
      */
@@ -65,7 +72,13 @@ public class BootConfig {
         GlobalConfiguration.Command.mainMenuThumbnail = configurationWithLowerCaseNames                       .get("mainmenuthumbnail");
     }
 
-    private static String convertQuoteMarkedConfig(String cfg) {
-        return cfg.split("\"")[1];
+    /**
+     * Retrieves a configuration value that's delimited by quotes.
+     *
+     * @param configuration the raw configuration value
+     * @return the configuration value between quotes
+     */
+    private static String convertQuoteMarkedConfig(String configuration) {
+        return configuration.split("\"")[1];
     }
 }

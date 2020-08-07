@@ -9,20 +9,20 @@ import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
  * Represents a generic message event.
  */
 public class MessageReceivedEvent {
-	private MessageOrigin messageOrigin;
-	private GuildMessageReceivedEvent guildMessageEvent = null;
-	private PrivateMessageReceivedEvent privateMessageEvent = null;
+	private final MessageOrigin messageOrigin;
+	private final GuildMessageReceivedEvent guildMessageEvent;
+	private final PrivateMessageReceivedEvent privateMessageEvent;
 
 	// Both
-	private User author = null;
-	private Message message = null;
-	private MessageChannel channel = null;
-	private JDA jda = null;
+	private final User author;
+	private final Message message;
+	private final MessageChannel channel;
+	private final JDA jda;
 
 	// GuildInfo only
-	private TextChannel guildChannel = null;
-	private Guild guild = null;
-	private Member member = null;
+	private final TextChannel guildChannel;
+	private final Guild guild;
+	private final Member member;
 
 	// Private only
 	private PrivateChannel privateChannel = null;
@@ -33,6 +33,7 @@ public class MessageReceivedEvent {
 	 */
 	public MessageReceivedEvent(GuildMessageReceivedEvent guildMessageEvent) {
 		this.guildMessageEvent = guildMessageEvent;
+		this.privateMessageEvent = null;
 		author = guildMessageEvent.getAuthor();
 		message = guildMessageEvent.getMessage();
 		guildChannel = guildMessageEvent.getChannel();
@@ -49,12 +50,16 @@ public class MessageReceivedEvent {
 	 */
 	public MessageReceivedEvent(PrivateMessageReceivedEvent privateMessageEvent) {
 		this.privateMessageEvent = privateMessageEvent;
+		this.guildMessageEvent = null;
 		author = privateMessageEvent.getAuthor();
 		message = privateMessageEvent.getMessage();
 		privateChannel = privateMessageEvent.getChannel();
 		channel = privateMessageEvent.getChannel();
 		jda = privateMessageEvent.getJDA();
 		messageOrigin = MessageOrigin.PRIVATE_CHANNEL;
+		guildChannel = null;
+		guild = null;
+		member = null;
 	}
 
 	/**
@@ -123,5 +128,13 @@ public class MessageReceivedEvent {
 	 */
 	public MessageOrigin getMessageOrigin() {
 		return messageOrigin;
+	}
+
+	public GuildMessageReceivedEvent getGuildMessageEvent() {
+		return guildMessageEvent;
+	}
+
+	public PrivateMessageReceivedEvent getPrivateMessageEvent() {
+		return privateMessageEvent;
 	}
 }

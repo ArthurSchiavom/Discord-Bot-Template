@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubsSub extends CommandWithoutSubcommands {
     public SubsSub() {
-        super(Category.INFORMATION, "daddy?", true, "I don't really have args");
+        super(Category.INFORMATION, "daddy?", true, "I", "don't", "have", "args");
         this.registerName("Baby");
         this.registerName("child");
         this.registerName("LittleOne");
@@ -17,11 +17,6 @@ public class SubsSub extends CommandWithoutSubcommands {
         this.registerUsageExample(new CommandUsageExample("e f", "g h"));
     }
 
-    /**
-     * Execute this particular command's actions.
-     *
-     * @param event the event that triggered the command
-     */
     @Override
     protected void runInternal(MessageReceivedEvent event) {
         event.getChannel().sendMessage("buaaaa").queue();

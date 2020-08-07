@@ -1,10 +1,10 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
+import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
 import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementVerificationResult;
 import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementsManager;
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A Discord command.
+ */
 public abstract class Command {
 
     @Getter private final Category category;
@@ -24,14 +27,30 @@ public abstract class Command {
     @Autowired @Getter private RequirementsManager requirementsManager;
     private int depth = 1;
 
+    /**
+     * @return this command's names
+     */
     public List<String> getNames() {
         return new ArrayList<>(names);
     }
 
+    /**
+     * @return this command's default name
+     */
+    public String getDefaultName() {
+        return names.get(0);
+    }
+
+    /**
+     * @return the arguments required by this command
+     */
     public List<String> getArguments() {
         return new ArrayList<>(arguments);
     }
 
+    /**
+     * @return examples of how to use this command
+     */
     public List<CommandUsageExample> getUsageExamples() {
         return new ArrayList<>(usageExamples);
     }
@@ -46,6 +65,11 @@ public abstract class Command {
         depth++;
     }
 
+    /**
+     * Retrieves this command's depth in the command chain. In other words, how many supercommands it has +1;
+     *
+     * @return command's depth
+     */
     protected int getDepth() {
         return depth;
     }
@@ -67,10 +91,6 @@ public abstract class Command {
         names = new ArrayList<>();
         usageExamples = new ArrayList<>();
         this.arguments = Arrays.asList(arguments);
-    }
-
-    public String getDefaultName() {
-        return names.get(0);
     }
 
     /**
@@ -97,7 +117,8 @@ public abstract class Command {
     /**
      * Registers requirements to run this command.
      *
-     * @param others requirements to register
+     * @param first requirement to register
+     * @param others other requirements to register
      */
     protected void registerRequirements(Requirement first, @NonNull Requirement... others) {
         requirementsManager.setRequirements(first, others);
@@ -160,7 +181,6 @@ public abstract class Command {
             return split[nArguments];
     }
 
-
     /**
      * Removes the prefix from a message.
      * If the message doesn't contain the prefix, still removes the amount of characters from the beginning of the text.
@@ -174,6 +194,4 @@ public abstract class Command {
 
         return msg.substring(GlobalConfiguration.Command.commandPrefixNChars);
     }
-
-
 }

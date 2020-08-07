@@ -20,7 +20,6 @@ import javax.annotation.PostConstruct;
 public class DataAccessConfig {
     Logger logger = LoggerFactory.getLogger(DataAccessConfig.class);
 
-    // TODO - replace this repo with a real one
     @Autowired
     PlaceholderRepo_TEMP repo;
 

@@ -1,7 +1,6 @@
 package arthur.silva.discordbot.base.ui.command;
 
 import arthur.silva.discordbot.base.ui.command.base.Category;
-import arthur.silva.discordbot.base.ui.command.base.CommandUsageExample;
 import arthur.silva.discordbot.base.ui.command.base.CommandWithSubcommands;
 import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
 import org.springframework.beans.factory.annotation.Autowired;

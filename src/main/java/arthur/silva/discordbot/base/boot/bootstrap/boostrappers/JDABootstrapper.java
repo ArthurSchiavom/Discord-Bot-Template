@@ -7,7 +7,6 @@ import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguratio
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +30,7 @@ public class JDABootstrapper implements BootstrapperOrdered {
     }
 
     @Override
-    public String loadingTargetName() {
+    public String getModuleDisplayName() {
         return "Discord API Framework";
     }
 }

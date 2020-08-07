@@ -1,11 +1,11 @@
 package arthur.silva.discordbot.base.ui.command.base.formatter;
 
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
-import arthur.silva.discordbot.base.ui.command.base.Command;
-import arthur.silva.discordbot.base.ui.command.base.CommandsManager;
 import arthur.silva.discordbot.base.infrastructure.application.utils.EmbedUtils;
 import arthur.silva.discordbot.base.infrastructure.application.utils.StringUtils;
 import arthur.silva.discordbot.base.ui.command.base.Category;
+import arthur.silva.discordbot.base.ui.command.base.Command;
+import arthur.silva.discordbot.base.ui.command.base.CommandsManager;
 import arthur.silva.discordbot.base.ui.command.base.formatter.type.MainMenuFormatter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -14,6 +14,9 @@ import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.util.*;
 
+/**
+ * Formats commands' main menus.
+ */
 public class DefaultMainMenuFormatter implements MainMenuFormatter {
 
     @Override
@@ -27,7 +30,7 @@ public class DefaultMainMenuFormatter implements MainMenuFormatter {
     }
 
     private MessageEmbed generateHelpEmbed(Collection<Command> commandsToList) {
-        Map<Category, String> categoriesHelp = calcCategoriesHelp(commandsToList);
+        Map<Category, String> categoriesHelp = generateCategoriesDescriptions(commandsToList);
 
         EmbedBuilder helpEb = new EmbedBuilder();
         for (Map.Entry<Category, String> catHelpEntry : categoriesHelp.entrySet()) {
@@ -42,12 +45,18 @@ public class DefaultMainMenuFormatter implements MainMenuFormatter {
         return helpEb.build();
     }
 
-    private Map<Category, String> calcCategoriesHelp(Collection<arthur.silva.discordbot.base.ui.command.base.Command> commands) {
-        Map<Category, Set<arthur.silva.discordbot.base.ui.command.base.Command>> commandsByCategory = CommandsManager.Utils.splitCommandsByCategory(commands);
+    /**
+     * Calculates the description message for each category.
+     *
+     * @param commands the commands to calculate the descriptions for
+     * @return the description per category
+     */
+    private Map<Category, String> generateCategoriesDescriptions(Collection<Command> commands) {
+        Map<Category, Set<Command>> commandsByCategory = CommandsManager.Utils.splitCommandsByCategory(commands);
 
         Map<Category, String> categoriesHelp = new LinkedHashMap<>();
-        for (Map.Entry<Category, Set<arthur.silva.discordbot.base.ui.command.base.Command>> commandCategoryEntry : commandsByCategory.entrySet()) {
-            Set<arthur.silva.discordbot.base.ui.command.base.Command> categoryCommands = commandCategoryEntry.getValue();
+        for (Map.Entry<Category, Set<Command>> commandCategoryEntry : commandsByCategory.entrySet()) {
+            Set<Command> categoryCommands = commandCategoryEntry.getValue();
 
             String catHelp = getCategoryHelpMessage(categoryCommands);
             categoriesHelp.put(commandCategoryEntry.getKey(), catHelp);
@@ -61,9 +70,9 @@ public class DefaultMainMenuFormatter implements MainMenuFormatter {
      * @param commands the commands to format
      * @return the formatted message
      */
-    private String getCategoryHelpMessage(Collection<arthur.silva.discordbot.base.ui.command.base.Command> commands) {
+    private String getCategoryHelpMessage(Collection<Command> commands) {
         StringBuilder sb = new StringBuilder();
-        Iterator<arthur.silva.discordbot.base.ui.command.base.Command> it = commands.iterator();
+        Iterator<Command> it = commands.iterator();
         if (it.hasNext())
             sb.append(" • ").append(it.next().getDefaultName());
         it.forEachRemaining(cmd -> {

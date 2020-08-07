@@ -1,10 +1,9 @@
 package arthur.silva.discordbot.base.application.events.operators;
 
-import arthur.silva.discordbot.base.ui.command.base.CommandExecutor;
 import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.command.base.CommandExecutor;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,6 +20,7 @@ public class GuildMessageEventOperator implements EventOperator<GuildMessageRece
 	 *
 	 * @param event The event to process.
 	 */
+	@Override
 	public void processMessageReceived(GuildMessageReceivedEvent event) {
 		if (event.getAuthor().isBot())
 			return;

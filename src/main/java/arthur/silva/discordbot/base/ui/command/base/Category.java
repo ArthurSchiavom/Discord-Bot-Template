@@ -1,7 +1,6 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
 /**
  * Command category.

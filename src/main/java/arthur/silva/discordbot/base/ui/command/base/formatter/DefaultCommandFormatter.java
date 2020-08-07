@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Formatter for commands' help messages.
+ */
 public class DefaultCommandFormatter implements CommandHelpFormatter {
     @Override
     public Message format(Map.Entry<String, Command> commandEntry) {
@@ -61,6 +64,9 @@ class CommandWithSubcommandsHelpGenerator {
         setFooter(eb, command, fullName);
     }
 
+    /**
+     * Sets both the title and the description.
+     */
     private void setHeader(EmbedBuilder eb, CommandWithSubcommands command, String fullName) {
         String title = GlobalConfiguration.Command.commandPrefix + fullName + " [Option]";
 
@@ -98,9 +104,9 @@ class CommandWithoutSubcommandsHelpGenerator {
     
     public void generateEmbedBuilder(EmbedBuilder eb, Command command, String fullName) {
         setHeader(eb, command, fullName);
-        CommandHelpGenerator.setAliases(eb, command);
         CommandHelpGenerator.setColor(eb);
         CommandHelpGenerator.setExamples(eb, command, fullName);
+        CommandHelpGenerator.setAliases(eb, command);
     }
     
     private void setHeader(EmbedBuilder eb, Command command, String fullName) {
@@ -148,6 +154,13 @@ class CommandHelpGenerator {
         eb.addField("Examples", helpExamples, false);
     }
 
+    /**
+     * Calculates a displayable message for the example.
+     *
+     * @param fullName command's full name
+     * @param example example to display
+     * @return displayable message for the example
+     */
     private static String calculateExampleDisplay(String fullName, CommandUsageExample example) {
         StringBuilder sb = new StringBuilder().append("`").append(GlobalConfiguration.Command.commandPrefix).append(fullName);
 

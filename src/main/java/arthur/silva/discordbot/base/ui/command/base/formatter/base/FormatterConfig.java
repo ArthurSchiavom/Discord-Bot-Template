@@ -7,6 +7,9 @@ import arthur.silva.discordbot.base.ui.command.base.formatter.type.MainMenuForma
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configurations for which formatters to use.
+ */
 @Configuration
 public class FormatterConfig {
 

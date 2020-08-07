@@ -1,2 +1,0 @@
-cloc.exe java\
-PAUSE

@@ -3,20 +3,37 @@ package arthur.silva.discordbot.base.infrastructure.application.utils;
 import org.springframework.lang.NonNull;
 
 import javax.annotation.Nullable;
+import java.time.Duration;
+import java.util.Calendar;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 
+/**
+ * Utilities for String manipulation.
+ */
 public class StringUtils {
 
-    public static final String EMPTY_LIST_TEXT_CONVERSION_MESSAGE = "Empty list";
-
-    public static String generateDisplayList(String separator, String lastSeparator, Collection<?> objects) {
+    /**
+     * Generates a list in String format.
+     *
+     * @param separator string that separates each list element
+     * @param lastSeparator string that separates the last elements of the list
+     * @param objects elements
+     * @return generated String list
+     */
+    public static String generateDisplayList(@NonNull String separator, @NonNull String lastSeparator, @NonNull Collection<?> objects) {
         return generateDisplayList(separator, lastSeparator, objects.toArray(new Object[0]));
     }
 
-    public static String generateDisplayList(String separator, String lastSeparator, Object... objects) {
+    /**
+     * Generates a list in String format.
+     *
+     * @param separator string that separates each list element
+     * @param lastSeparator string that separates the last elements of the list
+     * @param objects elements
+     * @return generated String list
+     */
+    public static String generateDisplayList(@NonNull String separator, @NonNull String lastSeparator, @NonNull Object... objects) {
         return generateDisplayList(separator, lastSeparator, null, null, objects);
     }
 
@@ -49,20 +66,110 @@ public class StringUtils {
         return result.toString();
     }
 
+    /**
+     * @return a character that's invisible in Discord
+     */
     public static String getInvisibleCharacter() {
         return "\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00";
     }
 
-    public static String joinElements(int firstIndex, int lastIndex, String separator, String[] values) {
+    /**
+     * Joins a group of String array elements with a given separator.
+     *
+     * @param firstIndex index of the first element to join
+     * @param lastIndex index of the last element to join
+     * @param separator string that separates each element
+     * @param lastSeparator string that separates the last 2 elements that are joined
+     * @param values the array to process
+     * @return the String with joined elements
+     */
+    public static String joinElements(int firstIndex, int lastIndex, String separator, String lastSeparator, String[] values) {
         StringBuilder sb = new StringBuilder();
 
         if (firstIndex <= lastIndex)
             sb.append(values[firstIndex]);
 
-        for (int i = firstIndex + 1; i <= lastIndex; i++) {
+        for (int i = firstIndex + 1; i < lastIndex; i++) {
             sb.append(separator).append(values[i]);
         }
 
+        if (firstIndex != lastIndex)
+            sb.append(lastSeparator).append(values[lastIndex]);
+
         return sb.toString();
+    }
+
+    /**
+     * Converts a number into a string of Discord emojis.
+     *
+     * @param number the number to convert
+     * @return the conversion result
+     */
+    public static String convertNumberToEmojiDisplay(long number) {
+        String numberString = Long.toString(number);
+        return replaceMathCharactersWithEmojis(numberString);
+    }
+
+    /**
+     * Replaces a message's numbers, +, -, /, x and * with Discord emojis.
+     *
+     * @param str the string the process
+     * @return the processed string
+     */
+    public static String replaceMathCharactersWithEmojis(String str) {
+        return str
+                .replace("-", ":heavy_minus_sign:")
+                .replace("+", ":heavy_plus_sign:")
+                .replace("x", ":heavy_multiplication_x:")
+                .replace("*", ":heavy_multiplication_x:")
+                .replace("/", ":heavy_division_sign:")
+                .replace("0", ":zero:")
+                .replace("1", ":one:")
+                .replace("2", ":two:")
+                .replace("3", ":three:")
+                .replace("4", ":four:")
+                .replace("5", ":five:")
+                .replace("6", ":six:")
+                .replace("7", ":seven:")
+                .replace("8", ":eight:")
+                .replace("9", ":nine:");
+    }
+
+    /**
+     * Converts a calendar information to full day, month and year format.
+     * <br>Check <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#dt">Formatter docs</a> for more info.
+     *
+     * @param cal The target calendar.
+     * @return A full textual representation of the day, month and year.
+     */
+    public static String calendarToDateDisplay(Calendar cal) {
+        return String.format(Locale.ENGLISH
+                , "%te of %tB, %tY"
+                , cal
+                , cal
+                , cal);
+    }
+
+    /**
+     * Converts a calendar information to 24H time format (HH:MMM).
+     * <br>Check <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#dt">Formatter docs</a> for more info.
+     *
+     * @param cal The target calendar.
+     * @return A textual representation of the time as HH:MM.
+     */
+    public static String calendarToTimeDisplay(Calendar cal) {
+        return String.format("%tR"
+                , cal);
+    }
+
+    /**
+     * Converts a calendar information to full day, month and year format + 24H time format as HH:MM.
+     * <br>Check <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html#dt">Formatter docs</a> for more info.
+     *
+     * @param cal The target calendar.
+     * @return A full textual representation of the day, month and year + 24H time as HH:MM.
+     */
+    public static String calendarToDateTimeDisplay(Calendar cal) {
+        return calendarToDateDisplay(cal) + " - " + calendarToTimeDisplay(cal);
     }
 }

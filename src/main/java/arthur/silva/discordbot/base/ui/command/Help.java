@@ -1,14 +1,16 @@
 package arthur.silva.discordbot.base.ui.command;
 
+import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import arthur.silva.discordbot.base.ui.command.base.*;
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
+/**
+ * Command to obtain help/info on using the bot.
+ */
 @Component
 public class Help extends CommandWithoutSubcommands {
 
@@ -24,11 +26,6 @@ public class Help extends CommandWithoutSubcommands {
         this.registerName("H");
     }
 
-    /**
-     * Execute this particular command's actions.
-     *
-     * @param event the event that triggered the command
-     */
     @Override
     protected void runInternal(MessageReceivedEvent event) {
         String commandToFindHelpFor = event.getMessage().getContentDisplay();

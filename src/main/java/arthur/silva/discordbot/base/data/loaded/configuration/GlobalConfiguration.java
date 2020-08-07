@@ -2,11 +2,17 @@ package arthur.silva.discordbot.base.data.loaded.configuration;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import org.springframework.lang.NonNull;
 
 import java.awt.*;
 
+/**
+ * Holds global application configurations.
+ */
 public class GlobalConfiguration {
+
+    /**
+     * Configurations related to commands.
+     */
     public static class Command {
         public static final String ARGUMENT_SEPARATOR = " "; // Used to separate parent/child commands
 
@@ -29,6 +35,9 @@ public class GlobalConfiguration {
          */
         public static String mainMenuThumbnail = null;
 
+        /**
+         * Sets the embed's footer to match the configuration values.
+         */
         public static void configHelpEmbedFooter(EmbedBuilder eb) {
             if (helpEmbedFooterImageUrl != null && helpEmbedFooterText != null)
                 eb.setFooter(helpEmbedFooterText, helpEmbedFooterImageUrl);
@@ -36,6 +45,9 @@ public class GlobalConfiguration {
                 eb.setFooter(helpEmbedFooterText);
         }
 
+        /**
+         * Sets the embed's thumbnail to match the configuration values.
+         */
         public static void configEmbedThumbnail(EmbedBuilder eb) {
             if (mainMenuThumbnail != null)
                 eb.setThumbnail(Command.mainMenuThumbnail);
@@ -43,7 +55,7 @@ public class GlobalConfiguration {
     }
 
     /**
-     * Bot configurations.
+     * Configurations related to Discord.
      */
     public static class Bot {
         public static String token = null;
