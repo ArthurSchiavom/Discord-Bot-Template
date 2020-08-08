@@ -25,7 +25,7 @@ public class Bootstrap {
     /**
      * Retrieve boostrappers.
      */
-    private void setup() {
+    private final void setup() {
         orderedBootstrappers = applicationContext.getBean("orderedBootstrappers", Collection.class);
         unorderedBootstrappers = applicationContext.getBean("unorderedBootstrappers", Collection.class);
     }
@@ -66,7 +66,7 @@ public class Bootstrap {
     /**
      * @return (1) true in case of success or (2) false if not all bootstrappers are registered.
      */
-    private boolean checkIfAllBootstrappersAreRegistered() {
+    private final boolean checkIfAllBootstrappersAreRegistered() {
         int nOrderedBootstrappersTotal = applicationContext.getBeansOfType(BootstrapperOrdered.class).size();
         int nOrderedBootstrappersRegistered = orderedBootstrappers.size();
         return nOrderedBootstrappersTotal == nOrderedBootstrappersRegistered;
@@ -88,8 +88,8 @@ public class Bootstrap {
      */
     private boolean runBootstrapperLists(Collection<? extends Bootstrapper>... bootrappersDoubleList) {
         boolean success = true;
-        for (Collection<? extends Bootstrapper> bootstrappers : bootrappersDoubleList) {
-            success = runBootstrappers(bootstrappers);
+        for (Collection<? extends Bootstrapper> bootsrappers : bootrappersDoubleList) {
+            success = runBootstrapperList(bootsrappers);
             if (!success)
                 break;
         }
@@ -102,7 +102,7 @@ public class Bootstrap {
      *
      * @return (1) true in case of success or (2) false if a critical bootstrapping operation failed, meaning that the application should shutdown.
      */
-    private boolean runBootstrappers(Collection<? extends Bootstrapper> bootstrappers) {
+    private boolean runBootstrapperList(Collection<? extends Bootstrapper> bootstrappers) {
         boolean success = true;
         for (Bootstrapper bootstrapper : bootstrappers) {
             success = runBootstrapper(bootstrapper);

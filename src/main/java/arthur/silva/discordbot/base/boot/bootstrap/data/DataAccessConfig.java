@@ -1,6 +1,6 @@
 package arthur.silva.discordbot.base.boot.bootstrap.data;
 
-import arthur.silva.discordbot.base.data.repository.PlaceholderRepo_TEMP;
+import arthur.silva.discordbot.base.data.access.PlaceholderRepo_TEMP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.annotation.PostConstruct;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"arthur.silva.discordbot.base.data.repository"})
+@EnableJpaRepositories(basePackages = {"arthur.silva.discordbot.base.data.access"})
 @EnableTransactionManagement
 @EntityScan(basePackages = {"arthur.silva.discordbot.base.domain"})
 @EnableAspectJAutoProxy
-public class DatabaseAccessConfig {
-    Logger logger = LoggerFactory.getLogger(DatabaseAccessConfig.class);
+public class DataAccessConfig {
+    Logger logger = LoggerFactory.getLogger(DataAccessConfig.class);
 
     @Autowired
     PlaceholderRepo_TEMP repo;

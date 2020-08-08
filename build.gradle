@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
     implementation("net.dv8tion:JDA:4.2.0_168")
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

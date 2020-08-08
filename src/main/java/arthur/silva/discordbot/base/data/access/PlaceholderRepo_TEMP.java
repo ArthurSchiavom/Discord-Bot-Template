@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.data.repository;
+package arthur.silva.discordbot.base.data.access;
 
 import arthur.silva.discordbot.base.domain.Placeholder_TEMP;
 import org.springframework.data.repository.CrudRepository;
