@@ -42,4 +42,10 @@
     <logger name="com.zaxxer.hikari">
         <level value="warn"/>
     </logger>
+    <logger name="org.hibernate.Version">
+        <level value="off"/>
+    </logger>
+    <logger name="org.hibernate.annotations.common.Version">
+        <level value="off"/>
+    </logger>
 </configuration>
