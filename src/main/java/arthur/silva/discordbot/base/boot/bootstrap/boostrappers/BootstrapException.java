@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.boot.bootstrap.base;
+package arthur.silva.discordbot.base.boot.bootstrap.boostrappers;
 
 /**
  * Notification of a bootstrapping error.

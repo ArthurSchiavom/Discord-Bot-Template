@@ -1,6 +1,6 @@
 package arthur.silva.discordbot.base.ui.command.base.requirement;
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.events.MessageReceivedEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;

@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.shutdown.base;
+package arthur.silva.discordbot.base.shutdown;
 
 /**
  * Represents a shutdown module error

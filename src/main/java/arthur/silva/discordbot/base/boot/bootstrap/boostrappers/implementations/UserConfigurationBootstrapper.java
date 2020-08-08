@@ -1,8 +1,7 @@
-package arthur.silva.discordbot.base.boot.bootstrap.boostrappers;
+package arthur.silva.discordbot.base.boot.bootstrap.boostrappers.implementations;
 
-import arthur.silva.discordbot.base.boot.bootstrap.base.BootConfig;
-import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapException;
-import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapperOrdered;
+import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.Boostrapper;
+import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.BootstrapException;
 import lombok.Cleanup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,14 +17,14 @@ import java.util.Map;
 /**
  * Bootstraps the user configuration files.
  */
-@Service
-public class UserConfigurationBootstrapper implements BootstrapperOrdered {
+@Service("userConfigurationBootstrapper")
+public class UserConfigurationBootstrapper extends Boostrapper {
 
     @Value("${user.configuration.file}")
     private String configurationFilePath;
 
     @Override
-    public void boot() throws BootstrapException {
+    public void bootstrap() throws BootstrapException {
         UserConfigurationLoader configurationLoader = new UserConfigurationLoader(configurationFilePath);
         Map<String, String> configurationMap;
         try {

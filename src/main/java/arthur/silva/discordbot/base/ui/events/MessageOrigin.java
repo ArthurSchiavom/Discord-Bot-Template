@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.application.events;
+package arthur.silva.discordbot.base.ui.events;
 
 /**
  * Represents a message type.

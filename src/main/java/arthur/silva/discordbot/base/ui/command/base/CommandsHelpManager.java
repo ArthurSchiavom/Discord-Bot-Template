@@ -17,7 +17,6 @@ import java.util.*;
  * Provides all menus related to commands.
  */
 @Component
-@DependsOn("bootstrap")
 public class CommandsHelpManager {
     private final Logger LOGGER = LoggerFactory.getLogger(CommandsHelpManager.class);
 

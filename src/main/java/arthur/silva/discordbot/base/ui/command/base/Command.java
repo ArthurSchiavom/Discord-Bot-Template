@@ -1,6 +1,6 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import arthur.silva.discordbot.base.ui.command.base.requirement.Requirement;
 import arthur.silva.discordbot.base.ui.command.base.requirement.RequirementVerificationResult;

@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.application.events;
+package arthur.silva.discordbot.base.ui.events;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;

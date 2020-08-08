@@ -1,6 +1,6 @@
 package arthur.silva.discordbot.base.ui.command.base;
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.events.MessageReceivedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.DependsOn;
@@ -10,10 +10,9 @@ import org.springframework.stereotype.Component;
  * Executes commands.
  */
 @Component
-@DependsOn("bootstrap")
 public class CommandExecutor {
     @Autowired private CommandsManager commandsManager;
-    @Autowired ApplicationContext applicationContext;
+    @Autowired private ApplicationContext applicationContext;
 
     public boolean executePossibleCommand(MessageReceivedEvent event) {
         String message = event.getMessage().getContentDisplay();

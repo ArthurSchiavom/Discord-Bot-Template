@@ -1,6 +1,6 @@
-package arthur.silva.discordbot.base.boot.bootstrap.boostrappers;
+package arthur.silva.discordbot.base.boot.bootstrap.boostrappers.implementations;
 
-import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapException;
+import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.BootstrapException;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 
 import java.awt.*;

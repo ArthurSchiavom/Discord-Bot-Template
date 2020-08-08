@@ -1,22 +1,24 @@
-package arthur.silva.discordbot.base.boot.bootstrap.boostrappers;
+package arthur.silva.discordbot.base.boot.bootstrap.boostrappers.implementations;
 
-import arthur.silva.discordbot.base.application.events.EventsManager;
-import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapException;
-import arthur.silva.discordbot.base.boot.bootstrap.base.BootstrapperOrdered;
+import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.Boostrapper;
+import arthur.silva.discordbot.base.boot.bootstrap.boostrappers.BootstrapException;
+import arthur.silva.discordbot.base.ui.events.EventsManager;
 import arthur.silva.discordbot.base.data.loaded.configuration.GlobalConfiguration;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
-@Service
-public class JDABootstrapper implements BootstrapperOrdered {
+@Service("jdaBootstrapper")
+@DependsOn(value = {"userConfigurationBootstrapper", "jdaModuleShutdown"})
+public class JDABootstrapper extends Boostrapper {
 
     @Autowired
     private EventsManager eventsManager;
 
     @Override
-    public void boot() throws BootstrapException {
+    public void bootstrap() throws BootstrapException {
         try {
             GlobalConfiguration.Bot.jda = JDABuilder.createDefault(GlobalConfiguration.Bot.token).build().awaitReady();
 

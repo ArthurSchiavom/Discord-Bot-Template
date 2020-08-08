@@ -1,4 +1,4 @@
-package arthur.silva.discordbot.base.application.events.operators;
+package arthur.silva.discordbot.base.ui.events.operators;
 
 /**
  * Processes an event.

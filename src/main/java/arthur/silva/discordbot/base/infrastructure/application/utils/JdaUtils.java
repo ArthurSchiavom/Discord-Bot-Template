@@ -1,15 +1,12 @@
 package arthur.silva.discordbot.base.infrastructure.application.utils;
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.infrastructure.application.utils.exception.JDANotConnectedException;
 import arthur.silva.discordbot.base.infrastructure.application.utils.exception.MessageUnavailableException;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;
-import net.dv8tion.jda.api.exceptions.HierarchyException;
-import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.requests.ErrorResponse;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;

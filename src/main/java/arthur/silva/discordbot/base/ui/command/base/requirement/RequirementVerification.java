@@ -1,7 +1,7 @@
 package arthur.silva.discordbot.base.ui.command.base.requirement;
 
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.events.MessageReceivedEvent;
 
 /**
  * Callback for an operation that verifies if a given event meets a requirement.

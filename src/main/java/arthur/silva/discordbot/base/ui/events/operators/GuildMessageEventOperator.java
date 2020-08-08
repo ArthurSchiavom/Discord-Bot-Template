@@ -1,6 +1,6 @@
-package arthur.silva.discordbot.base.application.events.operators;
+package arthur.silva.discordbot.base.ui.events.operators;
 
-import arthur.silva.discordbot.base.application.events.MessageReceivedEvent;
+import arthur.silva.discordbot.base.ui.events.MessageReceivedEvent;
 import arthur.silva.discordbot.base.ui.command.base.CommandExecutor;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.springframework.beans.factory.annotation.Autowired;

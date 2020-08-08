@@ -16,7 +16,6 @@ import java.util.*;
  * Manages a group of commands.
  */
 @Component
-@DependsOn("bootstrap")
 public class CommandsManager {
     private Set<Command> rootCommandsInOrder;
     private Map<String, Command> fullNameLowerCaseToCommandMap;
