@@ -1,6 +1,6 @@
 package discord.bot.shutdown;
 
-import discord.bot.boot.bootstrap.boostrappers.Boostrapper;
+import discord.bot.bootstrap.boostrappers.Boostrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;

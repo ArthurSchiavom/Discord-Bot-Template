@@ -1,6 +1,6 @@
-package discord.bot.boot.bootstrap.boostrappers.implementations;
+package discord.bot.bootstrap.boostrappers.implementations;
 
-import discord.bot.boot.bootstrap.boostrappers.BootstrapException;
+import discord.bot.bootstrap.boostrappers.BootstrapException;
 import discord.bot.data.configuration.GlobalConfiguration;
 
 import java.awt.Color;

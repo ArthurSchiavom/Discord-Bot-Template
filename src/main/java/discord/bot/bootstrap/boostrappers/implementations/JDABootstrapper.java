@@ -1,7 +1,7 @@
-package discord.bot.boot.bootstrap.boostrappers.implementations;
+package discord.bot.bootstrap.boostrappers.implementations;
 
-import discord.bot.boot.bootstrap.boostrappers.Boostrapper;
-import discord.bot.boot.bootstrap.boostrappers.BootstrapException;
+import discord.bot.bootstrap.boostrappers.Boostrapper;
+import discord.bot.bootstrap.boostrappers.BootstrapException;
 import discord.bot.ui.events.EventsManager;
 import discord.bot.data.configuration.GlobalConfiguration;
 import net.dv8tion.jda.api.JDABuilder;

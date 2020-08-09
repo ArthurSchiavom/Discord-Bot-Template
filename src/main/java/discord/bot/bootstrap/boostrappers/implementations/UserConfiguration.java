@@ -1,4 +1,4 @@
-package discord.bot.boot.bootstrap.boostrappers.implementations;
+package discord.bot.bootstrap.boostrappers.implementations;
 
 import lombok.AllArgsConstructor;
 

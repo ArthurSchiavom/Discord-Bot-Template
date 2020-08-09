@@ -1,4 +1,4 @@
-package discord.bot.domain;
+package discord.bot.core.placeholder.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

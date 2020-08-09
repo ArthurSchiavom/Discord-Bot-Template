@@ -1,6 +1,6 @@
-package discord.bot.boot.bootstrap.data;
+package discord.bot.bootstrap.data;
 
-import discord.bot.data.database.PlaceholderRepo_TEMP;
+import discord.bot.data.persistence.PlaceholderRepo_TEMP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.annotation.PostConstruct;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"discord.bot.data.database"})
+@EnableJpaRepositories(basePackages = {"discord.bot.data.persistence"})
 @EnableTransactionManagement
-@EntityScan(basePackages = {"discord.bot.domain"})
+@EntityScan(basePackages = {"discord.bot.core.placeholder.domain"})
 @EnableAspectJAutoProxy
 public class DataAccessConfig {
     Logger logger = LoggerFactory.getLogger(DataAccessConfig.class);
