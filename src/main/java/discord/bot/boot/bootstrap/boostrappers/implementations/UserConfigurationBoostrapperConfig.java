@@ -3,35 +3,50 @@ package discord.bot.boot.bootstrap.boostrappers.implementations;
 import discord.bot.boot.bootstrap.boostrappers.BootstrapException;
 import discord.bot.data.configuration.GlobalConfiguration;
 
-import java.awt.*;
-import java.util.Map;
+import java.awt.Color;
+import java.util.Collection;
 
 public class UserConfigurationBoostrapperConfig {
 
     /**
      * Process user configurations.
      *
-     * @param configurationNames map where keys are the configuration keys and the values are the respective configuration value. Keys are lowercase and contain no spaces.
+     * @param configurationFilePath path to the configuration file
+     * @param configurations loaded configurations
      */
-    public static void processUserConfigurations(String configurationFilePath, Map<String, String> configurationNames) throws BootstrapException {
-        String selectedConfiguration;
+    public static void processUserConfigurations(String configurationFilePath, Collection<UserConfiguration> configurations) throws BootstrapException {
 
-        selectedConfiguration = configurationNames                                               .get("token");
-        if (selectedConfiguration == null)
-            throw new BootstrapException("The bot token configuration (token=123456789) is missing in the configuration file: " + configurationFilePath, true);
-        GlobalConfiguration.Bot.token = selectedConfiguration;
+        for (UserConfiguration config : configurations) {
+            String configurationValue = config.value.trim();
+            switch(config.name.toLowerCase().replaceAll(" ", "")) {
+                case "token":
+                    GlobalConfiguration.Bot.token = configurationValue;
+                    break;
+                case "commandsprefix":
+                    GlobalConfiguration.Command.commandPrefix = convertQuoteMarkedConfig(configurationValue);
+                    GlobalConfiguration.Command.commandPrefixNChars = GlobalConfiguration.Command.commandPrefix.length();
+                    break;
+                case "game":
+                    GlobalConfiguration.Bot.playingStatus = configurationValue;
+                    break;
+                case "helpembedcolor":
+                    GlobalConfiguration.Command.defaultEmbedColor = Color.decode(configurationValue);
+                    break;
+                case "helpembedfooterimageurl":
+                    GlobalConfiguration.Command.helpEmbedFooterImageUrl = configurationValue;
+                    break;
+                case "helpembedfootertext":
+                    GlobalConfiguration.Command.helpEmbedFooterText = configurationValue;
+                    break;
+                case "mainmenuthumbnail":
+                    GlobalConfiguration.Command.mainMenuThumbnail = configurationValue;
+            }
+        }
 
-        selectedConfiguration = configurationNames                                               .get("commandsprefix");
-        if (selectedConfiguration == null)
-            throw new BootstrapException("The bot prefix configuration (prefix=\"! \") is missing in the configuration file: " + configurationFilePath, true);
-        GlobalConfiguration.Command.commandPrefix = convertQuoteMarkedConfig(selectedConfiguration);
-        GlobalConfiguration.Command.commandPrefixNChars = GlobalConfiguration.Command.commandPrefix.length();
-
-        GlobalConfiguration.Bot.playingStatus = configurationNames                               .get("game");
-        GlobalConfiguration.Command.defaultEmbedColor = Color.decode(configurationNames          .get("helpembedcolor"));
-        GlobalConfiguration.Command.helpEmbedFooterImageUrl = configurationNames                 .get("helpembedfooterimageurl");
-        GlobalConfiguration.Command.helpEmbedFooterText = configurationNames                     .get("helpembedfootertext");
-        GlobalConfiguration.Command.mainMenuThumbnail = configurationNames                       .get("mainmenuthumbnail");
+        if (GlobalConfiguration.Bot.token == null)
+            throw new BootstrapException("You must specify the bot token (token=123456789) in the configuration file: " + configurationFilePath, true);
+        if (GlobalConfiguration.Command.commandPrefix == null)
+            throw new BootstrapException("You must specify the command prefix (prefix=\"!\") in the configuration file: " + configurationFilePath, true);
     }
 
     /**

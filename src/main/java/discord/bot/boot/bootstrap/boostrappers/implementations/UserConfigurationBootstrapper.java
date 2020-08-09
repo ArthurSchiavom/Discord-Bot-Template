@@ -11,8 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Bootstraps the user configuration files.
@@ -26,17 +25,17 @@ public class UserConfigurationBootstrapper extends Boostrapper {
     @Override
     public void bootstrap() throws BootstrapException {
         UserConfigurationLoader configurationLoader = new UserConfigurationLoader(configurationFilePath);
-        Map<String, String> configurationMap;
+        List<UserConfiguration> configurations;
         try {
-            configurationMap = configurationLoader.load();
+            configurations = configurationLoader.load();
         } catch (ConfigurationException e) {
             throw new BootstrapException("The configuration file (" + configurationFilePath + ") couldn't be read: " + e.getMessage(), true);
         }
 
-        configure(configurationMap);
+        configure(configurations);
     }
 
-    private void configure(Map<String, String> configurations) throws BootstrapException {
+    private void configure(Collection<UserConfiguration> configurations) throws BootstrapException {
         UserConfigurationBoostrapperConfig.processUserConfigurations(configurationFilePath, configurations);
     }
 
@@ -52,8 +51,8 @@ public class UserConfigurationBootstrapper extends Boostrapper {
             this.CONFIG_FILE_NAME = CONFIG_FILE_NAME;
         }
 
-        public Map<String, String> load() throws ConfigurationException {
-            HashMap<String, String> result = new HashMap<>();
+        public List<UserConfiguration> load() throws ConfigurationException {
+            List<UserConfiguration> result = new ArrayList<>();
             int nLine = 0;
             try {
                 @Cleanup FileReader fileReader = new FileReader(CONFIG_FILE_NAME, Charset.forName(StandardCharsets.UTF_8.name()));
@@ -63,9 +62,7 @@ public class UserConfigurationBootstrapper extends Boostrapper {
                     nLine++;
                     if (!str.startsWith("#") && str.contains("=")) {
                         String[] config = str.split("=");
-                        config[0] = config[0].toLowerCase().replace(" ", "");
-                        config[1] = config[1].trim();
-                        result.put(config[0], config[1]);
+                        result.add(new UserConfiguration(config[0], config[1]));
                     }
                 }
 
