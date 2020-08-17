@@ -1,8 +1,8 @@
 package discord.bot.ui.command;
 
+import discord.bot.data.configuration.GlobalConfiguration;
 import discord.bot.ui.command.base.*;
 import discord.bot.ui.events.MessageReceivedEvent;
-import discord.bot.data.configuration.GlobalConfiguration;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;

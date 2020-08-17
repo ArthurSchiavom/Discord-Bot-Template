@@ -1,12 +1,11 @@
 package discord.bot.ui.command.base;
 
-import discord.bot.ui.events.MessageReceivedEvent;
 import discord.bot.data.configuration.GlobalConfiguration;
 import discord.bot.ui.command.base.requirement.Requirement;
 import discord.bot.ui.command.base.requirement.RequirementVerificationResult;
 import discord.bot.ui.command.base.requirement.RequirementsManager;
+import discord.bot.ui.events.MessageReceivedEvent;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public abstract class Command {
     private final List<String> arguments;
     private final List<CommandUsageExample> usageExamples;
     private final boolean runInNewThread;
-    @Autowired @Getter private RequirementsManager requirementsManager;
+    @Getter private RequirementsManager requirementsManager = new RequirementsManager();
     private int depth = 1;
 
     /**

@@ -1,4 +1,4 @@
-package discord.bot.bootstrap.boostrappers;
+package discord.bot.boot_shutdown.bootstrap.boostrappers;
 
 /**
  * Notification of a bootstrapping error.

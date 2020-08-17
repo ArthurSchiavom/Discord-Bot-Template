@@ -1,8 +1,8 @@
 package discord.bot.infrastructure.application.utils;
 
-import discord.bot.ui.events.MessageReceivedEvent;
 import discord.bot.infrastructure.application.utils.exception.JDANotConnectedException;
 import discord.bot.infrastructure.application.utils.exception.MessageUnavailableException;
+import discord.bot.ui.events.MessageReceivedEvent;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.exceptions.ErrorResponseException;

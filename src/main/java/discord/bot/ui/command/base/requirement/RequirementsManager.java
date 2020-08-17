@@ -1,10 +1,8 @@
 package discord.bot.ui.command.base.requirement;
 
 import discord.bot.ui.events.MessageReceivedEvent;
-import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -13,8 +11,6 @@ import java.util.Set;
 /**
  * Manages a command's requirements.
  */
-@Scope("prototype")
-@Component
 public class RequirementsManager {
 	private Set<Requirement> requirements = new HashSet<>();
 

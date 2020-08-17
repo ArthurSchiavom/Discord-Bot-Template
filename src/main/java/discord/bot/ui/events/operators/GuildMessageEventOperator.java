@@ -1,7 +1,7 @@
 package discord.bot.ui.events.operators;
 
-import discord.bot.ui.events.MessageReceivedEvent;
 import discord.bot.ui.command.base.CommandExecutor;
+import discord.bot.ui.events.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

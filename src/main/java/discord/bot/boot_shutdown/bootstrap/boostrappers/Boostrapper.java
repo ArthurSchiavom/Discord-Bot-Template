@@ -1,4 +1,4 @@
-package discord.bot.bootstrap.boostrappers;
+package discord.bot.boot_shutdown.bootstrap.boostrappers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

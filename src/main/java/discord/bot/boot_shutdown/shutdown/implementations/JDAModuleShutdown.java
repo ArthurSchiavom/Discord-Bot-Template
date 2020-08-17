@@ -1,8 +1,8 @@
-package discord.bot.shutdown.implementations;
+package discord.bot.boot_shutdown.shutdown.implementations;
 
+import discord.bot.boot_shutdown.shutdown.ModuleShutdown;
+import discord.bot.boot_shutdown.shutdown.ShutdownException;
 import discord.bot.data.configuration.GlobalConfiguration;
-import discord.bot.shutdown.ModuleShutdown;
-import discord.bot.shutdown.ShutdownException;
 import net.dv8tion.jda.api.JDA;
 import org.springframework.stereotype.Service;
 

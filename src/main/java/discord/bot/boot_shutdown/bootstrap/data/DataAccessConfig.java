@@ -1,4 +1,4 @@
-package discord.bot.bootstrap.data;
+package discord.bot.boot_shutdown.bootstrap.data;
 
 import discord.bot.data.persistence.PlaceholderRepo_TEMP;
 import org.slf4j.Logger;

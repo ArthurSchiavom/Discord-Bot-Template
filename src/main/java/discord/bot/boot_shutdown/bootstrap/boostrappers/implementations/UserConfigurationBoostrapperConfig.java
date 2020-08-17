@@ -1,9 +1,9 @@
-package discord.bot.bootstrap.boostrappers.implementations;
+package discord.bot.boot_shutdown.bootstrap.boostrappers.implementations;
 
-import discord.bot.bootstrap.boostrappers.BootstrapException;
+import discord.bot.boot_shutdown.bootstrap.boostrappers.BootstrapException;
 import discord.bot.data.configuration.GlobalConfiguration;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Collection;
 
 public class UserConfigurationBoostrapperConfig {

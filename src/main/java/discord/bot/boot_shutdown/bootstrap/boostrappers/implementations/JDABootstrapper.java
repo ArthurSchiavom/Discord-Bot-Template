@@ -1,9 +1,9 @@
-package discord.bot.bootstrap.boostrappers.implementations;
+package discord.bot.boot_shutdown.bootstrap.boostrappers.implementations;
 
-import discord.bot.bootstrap.boostrappers.Boostrapper;
-import discord.bot.bootstrap.boostrappers.BootstrapException;
-import discord.bot.ui.events.EventsManager;
+import discord.bot.boot_shutdown.bootstrap.boostrappers.Boostrapper;
+import discord.bot.boot_shutdown.bootstrap.boostrappers.BootstrapException;
 import discord.bot.data.configuration.GlobalConfiguration;
+import discord.bot.ui.events.EventsManager;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import org.springframework.beans.factory.annotation.Autowired;

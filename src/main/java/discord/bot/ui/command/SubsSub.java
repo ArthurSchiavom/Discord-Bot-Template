@@ -1,9 +1,9 @@
 package discord.bot.ui.command;
 
-import discord.bot.ui.events.MessageReceivedEvent;
 import discord.bot.ui.command.base.Category;
 import discord.bot.ui.command.base.CommandUsageExample;
 import discord.bot.ui.command.base.CommandWithoutSubcommands;
+import discord.bot.ui.events.MessageReceivedEvent;
 import org.springframework.stereotype.Component;
 
 @Component

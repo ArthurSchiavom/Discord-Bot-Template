@@ -1,4 +1,4 @@
-package discord.bot.shutdown;
+package discord.bot.boot_shutdown.shutdown;
 
 /**
  * Represents a shutdown module error

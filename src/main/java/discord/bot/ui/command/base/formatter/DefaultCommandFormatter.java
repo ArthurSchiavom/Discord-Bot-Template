@@ -20,6 +20,12 @@ import java.util.Map;
  * Formatter for commands' help messages.
  */
 public class DefaultCommandFormatter implements CommandHelpFormatter {
+    /**
+     * Generates the help message for a given command and respective command full name.
+     *
+     * @param commandEntry command and respective command full name
+     * @return help message for the given command and respective command full name
+     */
     @Override
     public Message format(Map.Entry<String, Command> commandEntry) {
         Command command = commandEntry.getValue();
@@ -124,6 +130,9 @@ class CommandWithoutSubcommandsHelpGenerator {
     }
 }
 
+/**
+ * Used by all generators.
+ */
 class CommandHelpGenerator {
     
     public static void setColor(EmbedBuilder eb) {

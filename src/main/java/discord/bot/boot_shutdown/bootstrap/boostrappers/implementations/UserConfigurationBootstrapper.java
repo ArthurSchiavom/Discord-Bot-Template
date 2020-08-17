@@ -1,7 +1,7 @@
-package discord.bot.bootstrap.boostrappers.implementations;
+package discord.bot.boot_shutdown.bootstrap.boostrappers.implementations;
 
-import discord.bot.bootstrap.boostrappers.Boostrapper;
-import discord.bot.bootstrap.boostrappers.BootstrapException;
+import discord.bot.boot_shutdown.bootstrap.boostrappers.Boostrapper;
+import discord.bot.boot_shutdown.bootstrap.boostrappers.BootstrapException;
 import lombok.Cleanup;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Bootstraps the user configuration files.
