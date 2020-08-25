@@ -19,7 +19,7 @@ public abstract class Command {
 
     @Getter private final Category category;
     @Getter private final String description;
-    private final List<String> names; // TODO - The CommandExecutor will trace-back the names of all parents to create the menu.
+    private final List<String> names;
     private final List<String> arguments;
     private final List<CommandUsageExample> usageExamples;
     private final boolean runInNewThread;

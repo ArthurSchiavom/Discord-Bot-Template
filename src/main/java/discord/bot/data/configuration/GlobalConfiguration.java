@@ -66,4 +66,22 @@ public class GlobalConfiguration {
          */
         public static String playingStatus = null;
     }
+
+    public static class Font {
+        public static final String FONT_DIRECTORY = "assets/fonts";
+    }
+
+    public static class Card {
+        public static final String CHARACTER_IMAGE_DIRECTORY = "assets/characters";
+        public static final String FRAME_IMAGE_DIRECTORY = "assets/frames";
+        public static final String DEFAULT_FRAMES_IMAGE_DIRECTORY = "assets/default-frames";
+
+        public static Color characterNameAreaDelimiterColor = null;
+        public static Color animeNameAreaDelimiterColor = null;
+        public static Color characterImageAreaDelimiterColor = null;
+        public static Color animeNameColor = null;
+        public static String animeNameFont = null;
+        public static Color characterNameColor = null;
+        public static String characterNameFont = null;
+    }
 }

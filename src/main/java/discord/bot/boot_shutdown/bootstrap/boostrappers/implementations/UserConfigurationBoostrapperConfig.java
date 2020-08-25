@@ -40,6 +40,27 @@ public class UserConfigurationBoostrapperConfig {
                     break;
                 case "mainmenuthumbnail":
                     GlobalConfiguration.Command.mainMenuThumbnail = configurationValue;
+                    break;
+                case "characterimageareadelimitercolorhex":
+                    GlobalConfiguration.Card.characterImageAreaDelimiterColor = extractColor(configurationValue);
+                    break;
+                case "characternameareadelimitercolorhex":
+                    GlobalConfiguration.Card.characterNameAreaDelimiterColor = extractColor(configurationValue);
+                    break;
+                case "animenameareadelimitercolorhex":
+                    GlobalConfiguration.Card.animeNameAreaDelimiterColor = extractColor(configurationValue);
+                    break;
+                case "animenamecolor":
+                    GlobalConfiguration.Card.animeNameColor = extractColor(configurationValue);
+                    break;
+                case "animenamefont":
+                    GlobalConfiguration.Card.animeNameFont = configurationValue;
+                    break;
+                case "characternamecolor":
+                    GlobalConfiguration.Card.characterNameColor = extractColor(configurationValue);
+                    break;
+                case "characternamefont":
+                    GlobalConfiguration.Card.characterNameFont = configurationValue;
             }
         }
 
@@ -57,5 +78,13 @@ public class UserConfigurationBoostrapperConfig {
      */
     private static String convertQuoteMarkedConfig(String configuration) {
         return configuration.split("\"")[1];
+    }
+
+    private static Color extractColor(String colorString) throws BootstrapException {
+        try {
+            return Color.decode(colorString);
+        } catch (Exception e) {
+            throw new BootstrapException(colorString + " is not a valid hex color.", true);
+        }
     }
 }
