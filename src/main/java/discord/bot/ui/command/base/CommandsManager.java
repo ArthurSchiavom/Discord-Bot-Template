@@ -122,8 +122,12 @@ public class CommandsManager {
      */
     @Nullable
     public Command findCommand(@NonNull String userMessage, boolean hasPrefix) {
-        if (hasPrefix)
+        if (hasPrefix) {
+            if (!userMessage.startsWith(GlobalConfiguration.Command.commandPrefix))
+                return null;
+
             userMessage = Command.removePrefix(userMessage);
+        }
 
         if (userMessage.isEmpty()) {
             return null;

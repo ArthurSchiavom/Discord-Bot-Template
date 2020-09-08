@@ -15,7 +15,7 @@ import javax.annotation.PostConstruct;
 @Configuration
 @EnableJpaRepositories(basePackages = {"discord.bot.data.persistence"})
 @EnableTransactionManagement
-@EntityScan(basePackages = {"discord.bot.core.placeholder.domain"})
+@EntityScan(basePackages = {"discord.bot.core"})
 @EnableAspectJAutoProxy
 public class DataAccessConfig {
     Logger logger = LoggerFactory.getLogger(DataAccessConfig.class);
