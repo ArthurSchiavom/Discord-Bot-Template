@@ -1,5 +1,7 @@
 # Discord bot template
 
+Note: this project was created before slash commands existed, so it only has infrastrure for normal text message commands.
+
 This project is a template for Discord bots. 
 With this project, you can launch your Discord bot in a few minutes, just configure the database or remove it, put your token in the configuration file and you're ready to go!
 
